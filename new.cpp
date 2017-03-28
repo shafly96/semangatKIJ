@@ -69,11 +69,11 @@ int main(){
 	
 	for(i=0; i<56; i++) printf("%d ", pc1[i]);
 	
-//	for(i=0; i<56; i++){
+	for(i=0; i<56; i++){
 //		int a = pc_1[i];
 //		hasil_pc_1[i] = hasil_key[a-1]; //masukin key ke tabel pc-1
 //		printf("%d.%d ", i, hasil_key[a-1]);
-//	}
+	}
 //	
 //	printf("\n");
 //	
