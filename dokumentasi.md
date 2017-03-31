@@ -126,4 +126,5 @@ Menghasilkan Output:
 Cipher(dalam biner) :
 
 01010110 11110001 11010101 11001000 01010010 10101111 10000001 00111111
->>>>>>> 33dc6a2145a018559eab6e100681d533a7ea82d6
+
+referensi : http://octarapribadi.blogspot.co.id/2012/10/contoh-enkripsi-dengan-algoritma-des.html
