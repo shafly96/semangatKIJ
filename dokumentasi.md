@@ -1,9 +1,9 @@
-#Tugas 1 – Enkripsi DES menggunakan metode OBF
+# Tugas 1 – Enkripsi DES menggunakan metode OBF
 ##KIJ F Kelompok F12 :
 *•	Farhan Ramadhana 5114100078
 *•	Shafly Nauval Adiant 5114100114
 
-##Pendahuluan
+Pendahuluan
 Penggunaan teknologi informasi dan telekomunikasi pada saat ini telah mengubah cara pandang masyarakat dalam berkumunikasi. Pada saat ini pertukaran informasi sering sekali melibatkan penggunaan internet. Namun dengan demikian perlu diperhatikan tingkat keamanan informasi tersebut, karena pada saat ini penggunaan jaringan internet yang merupakan infrastuktur telekomunikasi dengan standar terbuka yang dapat dipergunakan oleh banyak pihak. Penyadapan informasi merupakan hal yang sangat merugikan bagi pengguna jaringan komunikasi saat ini.
 Pada tugas kali ini adalah membuat sebuah program yang dapat mengekripsi dan dekripsi data dengan DES (data encryption standart)  dengan menggunakan metode OFB (Output Feedback).
 Dasar Teori
