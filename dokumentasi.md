@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Tugas 1 – Enkripsi DES menggunakan metode OFB
 KIJ F Kelompok F12 :
 -	Farhan Ramadhana 5114100078
