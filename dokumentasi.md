@@ -125,6 +125,12 @@ Contoh input plaintext : COMPUTER
 Menghasilkan Output:
 Cipher(dalam biner) :
 
-01010110 11110001 11010101 11001000 01010010 10101111 10000001 00111111
+#Tugas 2
+Socket programming adalah mekanisme komunikasi yang memungkinkan terjadinya pertukaran data antar program atau proses baik dalam satu mesin maupun antar mesin.
 
-referensi : http://octarapribadi.blogspot.co.id/2012/10/contoh-enkripsi-dengan-algoritma-des.html
+dalam tugas kali ini kami membagi dua bagian yaitu bagian server dan bagian client. fungsi server adalah untuk mengekripsi kan data input yang dimasukkan oleh client sehingga pesan yang dimasukkan dari client akan terenkripsi pada bagian server. untuk socket client dan server kami mengambil referensi dari geeksforgeeks (link terdapat dibagian referensi).  
+
+Referensi :
+http://octarapribadi.blogspot.co.id/2012/10/contoh-enkripsi-dengan-algoritma-des.html
+http://www.geeksforgeeks.org/socket-programming-cc/
+http://a6statik.blogspot.co.id/2015/02/pengertian-socket-programing.html
