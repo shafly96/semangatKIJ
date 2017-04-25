@@ -3,7 +3,58 @@
 #include <stdlib.h>
 #include <netinet/in.h>
 #include <string.h>
+#include <math.h>
 #define PORT 8080
+
+int hitung_key(int g, int n, int z) // g n x || g n y
+{
+    // g pangkat z mod n
+    int hasil=1;
+    int i;
+    for(i=0; i<z; i++){
+        hasil*=g;
+        hasil = hasil % n;
+    }
+    //tes = tes%n;
+    return hasil;
+}
+
+int kunci_simetri(int a, int b, int c) //key_Y,n,g
+{
+    int hasil2=1;
+    int i;
+    for(i=0; i<c; i++){
+        hasil2*=a;
+        hasil2 = hasil2 % b;
+    }
+    // a pangkat c mod b
+    return hasil2;
+}
+
+int toString(char a[])
+{
+	int c, sign, offset, n;
+	if(a[0]=='-'){
+	sign = -1;
+	}
+
+	if(sign==-1){
+	offset=1;
+	}
+	
+	else 
+	offset=0;
+	n=0;
+
+	for(c=offset;a[c]!='\0';c++)
+	{
+		n=n*10+a[c]-'0';
+	}
+	if(sign==-1){
+	n=-n;
+	}
+	return n;
+}
 
 
 int *convert_biner(char plaintext){
@@ -31,7 +82,8 @@ int *decimalToBinary(long n) {
 
 int main(int argc, char const *argv[])
 {
-    char plaintext[7], key[7], ea[7];
+    char key[7], ea[7];
+    int kunci;
     int server_fd, new_socket, valread;
     struct sockaddr_in address;
     int opt = 1;
@@ -77,10 +129,23 @@ int main(int argc, char const *argv[])
     }
 	while(1){
         valread = read( new_socket , ea, 1024);
-
-	printf("Masukan text: "); scanf("%s", plaintext);
-	printf("Masukan key: "); scanf("%s", key);
-
+	
+	char plaintext[]="kij1234";
+	int flag=1;
+	int g_diffie=3, n_diffie=353;
+	int alice;
+	char y_bob[100];
+	valread = read(new_socket,y_bob,1024);
+	int bob = toString(y_bob);
+	printf("Masukkan nilai X : ");scanf("%d",&alice);	//alice	
+	printf("%d\n",bob);
+	
+	int key_X = hitung_key(g_diffie,n_diffie,alice); //alice
+	int key_Y = hitung_key(g_diffie,n_diffie,bob); //bob
+	printf("nilai X dan Y setelah dihitung %d %d ",key_X , key_Y);
+	int alice_2 = kunci_simetri(key_Y,n_diffie,alice);
+	int bob_2 = kunci_simetri(key_X,n_diffie,bob);
+	printf("nilai K alice dan K bob setelah dihitung : %d %d",alice,bob);
 		
 	int ip[64]={
 		58,	50,	42,	34,	26,	18,	10,	2,

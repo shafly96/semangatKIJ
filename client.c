@@ -37,10 +37,14 @@ int main(int argc, char const *argv[])
 		return -1;
 	    }
 		int i=1;
-				while(1){
+		while(1){
 		printf("--%d--\n", i);
 		printf("Masukan plaintext/chipertext: "); scanf("%s", ea);
-		    send(sock , ea , strlen(ea) , 0 );
+		send(sock , ea , strlen(ea) , 0 );
+		char y_bob[100];		
+		printf("Masukkan nilai y_bob : "); scanf("%s",y_bob);
+		    
+		    send(sock, y_bob,strlen(y_bob),0);
 		    valread = read( sock , buffer, 1024);
 		i++;
 		    printf("server : %s\n",buffer );
