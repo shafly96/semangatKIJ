@@ -133,19 +133,20 @@ int main(int argc, char const *argv[])
 	char plaintext[]="kij1234";
 	int flag=1;
 	int g_diffie=3, n_diffie=353;
-	int alice;
+	int alice; //x
 	char y_bob[100];
 	valread = read(new_socket,y_bob,1024);
 	int bob = toString(y_bob);
 	printf("Masukkan nilai X : ");scanf("%d",&alice);	//alice	
-	printf("%d\n",bob);
-	
+	printf("nilai X dari alice dan nilai Y dari bob : %d %d\n",alice,bob);
+	/* diffie helman */
 	int key_X = hitung_key(g_diffie,n_diffie,alice); //alice
 	int key_Y = hitung_key(g_diffie,n_diffie,bob); //bob
-	printf("nilai X dan Y setelah dihitung %d %d ",key_X , key_Y);
+	printf("nilai X dan Y setelah dihitung %d %d\n",key_X , key_Y);
 	int alice_2 = kunci_simetri(key_Y,n_diffie,alice);
 	int bob_2 = kunci_simetri(key_X,n_diffie,bob);
-	printf("nilai K alice dan K bob setelah dihitung : %d %d",alice,bob);
+	/* end of diffie helman */
+	printf("nilai K alice dan K bob setelah dihitung : %d %d\n",alice_2,bob_2);
 		
 	int ip[64]={
 		58,	50,	42,	34,	26,	18,	10,	2,
@@ -267,7 +268,7 @@ int main(int argc, char const *argv[])
 			 2,  1, 14,  7,  4, 10,  8, 13, 15, 12,  9,  0,  3,  5,  6, 11
 		}
 	};
-	int *p, i, j, k, n, m, hasil[64], hasil_pc_1[56], hasil_key[64], hasil_ip[64], l[32], r[32], pc1_l[28], pc1_r[28], pc2_l[28], pc2_r[28], chipertext[64], temp1, temp2;
+	int *p, i, j, k, n, m, hasil[64], hasil_pc_1[56], *hasil_key, hasil_ip[64], l[32], r[32], pc1_l[28], pc1_r[28], pc2_l[28], pc2_r[28], chipertext[64], temp1, temp2;
 	for (i=0; i<8; i++){
 		p = convert_biner(plaintext[i]); //convert biner plaintext
 		k=7;
@@ -277,16 +278,19 @@ int main(int argc, char const *argv[])
 			k--;
 		}
 	}
+
+
+	hasil_key = decimalToBinary(alice_2);
 	
-	for (i=0; i<8; i++){
-		p = convert_biner(key[i]); //convert biner key
-		k=7;
-		int a=i*8, b=(i+1)*8;
-		for(j=a; j<b; j++){
-			hasil_key[j] = *(p+k);
-			k--;
-		}
-	}
+	//for (i=0; i<8; i++){
+		//p = convert_biner(key[i]); //convert biner key
+		//k=7;
+		//int a=i*8, b=(i+1)*8;
+		//for(j=a; j<b; j++){
+			//hasil_key[j] = *(p+k);
+			//k--;
+		//}
+	//}
 
 	for(i=0; i<64; i++){
 		int a = ip[i];
@@ -301,7 +305,7 @@ int main(int argc, char const *argv[])
 		 k++;
 	} 
 	
-	for(i=0; i<64; i++){
+	for(i=0; i<64; i++){*hasil_key
 		hasil_pc_1[i] = hasil_key[pc_1[i]-1]; //masukin key ke pc 1
 	}
 	
