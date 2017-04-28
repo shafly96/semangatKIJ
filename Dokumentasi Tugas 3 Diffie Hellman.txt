@@ -1,0 +1,49 @@
+Diffie Helman
+
+Pada tugas 3 kali ini kaami menambahkan diffie helman yang berguna untuk berbagi kunci enkripsi antara 
+client dan server.
+
+Algoritma Diffie Hellman adalah seperti berikut : 
+
+1. Alice membangkitkan bilangan bulat acak yang besar x dan mengirim hasil perhitungan berikut kepada Bob :
+	X = g^x mod n
+
+2. Bob membangkitkan bilangan bulat acak yang besar y dan mengirim hasil perhitungan berikut kepada Alice :
+	Y = g^y mod n
+
+3. Alice menghitung 
+	K= Y^x mod n
+
+4. Bob menghitung 
+	K' = X^y mod n
+
+berikut merupakan source code untuk menghitung kunci dan menghitung kunci simetri :
+
+int hitung_key(int g, int n, int z) // g n x || g n y
+{
+    // g pangkat z mod n
+    int hasil=1;
+    int i;
+    for(i=0; i<z; i++){
+        hasil*=g;
+        hasil = hasil % n;
+    }
+    //tes = tes%n;
+    return hasil;
+}
+
+int kunci_simetri(int a, int b, int c) //key_Y,n,g
+{
+    int hasil2=1;
+    int i;
+    for(i=0; i<c; i++){
+        hasil2*=a;
+        hasil2 = hasil2 % b;
+    }
+    // a pangkat c mod b
+    return hasil2;
+}
+
+Sumber : 
+https://www.slideshare.net/KuliahKita/kriptografi-algoritma-diffie-hellman
+https://www.programmingsimplified.com/c/source-code/c-program-convert-string-to-integer-without-using-atoi-function
