@@ -3,6 +3,7 @@ from select import select
 import sys
 import os
 import binascii
+import random
 
 def text_to_bits(text, encoding='utf-8', errors='surrogatepass'):
     bits = bin(int(binascii.hexlify(text.encode(encoding, errors)), 16))[2:]
@@ -16,6 +17,11 @@ def int2bytes(i):
     hex_string = '%x' % i
     n = len(hex_string)
     return binascii.unhexlify(hex_string.zfill(n + (n & 1)))
+
+def gcd(a, b):
+    while b != 0:
+        a, b = b, a % b
+    return a
 
 serverAddress = ('', 5005)
 serverSocket = socket(AF_INET, SOCK_STREAM)
@@ -42,10 +48,44 @@ try:
                 print sock.getpeername(), msg+' : '+result
                 result2 = list(result)
                 print result2
-                i = 0
-                while i < len(result2):
-                    print "angka : {}{}{}".format(result2[i],result2[i+1],result2[i+2])
-                    i+=3
+                
+                #tes print array
+                #i = 0
+                #while i < len(result2):
+                #    print "angka : {}{}{}".format(result2[i],result2[i+1],result2[i+2])
+                #    i+=3
+
+                #langkah 1
+                p = 61
+                q = 53
+                #langkah 2
+                n = p*q
+                #langkah3
+                phi = (p-1)*(q-1)
+                print n
+                print phi
+
+                #langkah 4
+                e = random.randrange(1, phi)
+
+                cek = gcd(e, phi)
+                while cek != 1:
+                    e = random.randrange(1, phi)
+                    cek = gcd(e, phi)
+                print e
+
+                #langkah 5
+                cek2 = e%phi
+                d = 1
+                while cek2 != 1:
+                    d+=1
+                    cek2 = (d*e)%phi
+                print d
+
+                #langkah 6
+                print "private key : ",d
+                print "public key : ",e
+                
                 if msg:
                     sock.send(msg+' received by server\n')
                 else:
