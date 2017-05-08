@@ -1,0 +1,2 @@
+http://teknosian.blogspot.co.id/2014/06/5-langkah-mudah-membuat-kunci-algoritma.html = ngikutin step stepnya dari sini
+https://gist.github.com/JonCooperWorks/5314103 = bikin funsi gcd ga jadi jadi mentok liat punya orang tapi cuma gcdnya doang
