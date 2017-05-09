@@ -13,8 +13,12 @@ try:
     while True:
         sys.stdout.write('> ')
         message = sys.stdin.readline()
-        clientSocket.send(message)
-        sys.stdout.write(clientSocket.recv(BUFFER_SIZE))
+        temp = message.partition(" ")
+        if temp[0]=="decrypt":
+            print "decrypt ",temp[2]
+        else:
+            clientSocket.send(message)
+            sys.stdout.write(clientSocket.recv(BUFFER_SIZE))
 
 except KeyboardInterrupt:
     print 'You pressed ctrl+c'

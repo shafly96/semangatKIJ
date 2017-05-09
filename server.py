@@ -58,8 +58,10 @@ try:
                 #langkah 1
                 p = 61
                 q = 53
+                
                 #langkah 2
                 n = p*q
+                
                 #langkah3
                 phi = (p-1)*(q-1)
                 print n
@@ -87,7 +89,7 @@ try:
                 print "public key : ",e
                 
                 if msg:
-                    sock.send(msg+' received by server\n')
+                    sock.send('public key : {}\n'.format(e))
                 else:
                     print sock.getpeername() , '((this user disconnected))'
                     sock.close()
