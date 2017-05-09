@@ -5,18 +5,9 @@ import os
 import binascii
 import random
 
-def text_to_bits(text, encoding='utf-8', errors='surrogatepass'):
-    bits = bin(int(binascii.hexlify(text.encode(encoding, errors)), 16))[2:]
-    return bits.zfill(8 * ((len(bits) + 7) // 8))
-
-def text_from_bits(bits, encoding='utf-8', errors='surrogatepass'):
-    n = int(bits, 2)
-    return int2bytes(n).decode(encoding, errors)
-
-def int2bytes(i):
-    hex_string = '%x' % i
-    n = len(hex_string)
-    return binascii.unhexlify(hex_string.zfill(n + (n & 1)))
+def decrypt(key, n, ciphertext):
+    plain = [chr((char ** key) % n) for char in ciphertext]
+    return ''.join(plain)
 
 def gcd(a, b):
     while b != 0:
@@ -32,6 +23,41 @@ serverSocket.listen(3)
 CONNECTION_LIST = [serverSocket]
 BUFFER_SIZE = 1024
 print "Server started"
+
+#langkah 1
+p = 61
+q = 53
+                
+#langkah 2
+n = p*q
+                
+#langkah3
+phi = (p-1)*(q-1)
+#print n
+#print phi
+
+#langkah 4
+e = random.randrange(1, phi)
+
+cek = gcd(e, phi)
+while cek != 1:
+    e = random.randrange(1, phi)
+    cek = gcd(e, phi)
+    #print e
+
+#langkah 5
+cek2 = e%phi
+d = 1
+while cek2 != 1:
+    d+=1
+    cek2 = (d*e)%phi
+#print d
+
+#langkah 6
+print "private key ",d
+print "public key ",e
+print "\n"
+
 try:
     while True:
         reads, writes, errors = select(CONNECTION_LIST, [], [])
@@ -41,55 +67,24 @@ try:
                 CONNECTION_LIST.append(clientSocket)
 
             else:
-                msg = sock.recv(BUFFER_SIZE)
-                msg = msg[:-1]
-                perintah = msg.partition(" ")
-                result = text_to_bits(msg)
-                print sock.getpeername(), msg+' : '+result
-                result2 = list(result)
-                print result2
-                
-                #tes print array
-                #i = 0
-                #while i < len(result2):
-                #    print "angka : {}{}{}".format(result2[i],result2[i+1],result2[i+2])
-                #    i+=3
-
-                #langkah 1
-                p = 61
-                q = 53
-                
-                #langkah 2
-                n = p*q
-                
-                #langkah3
-                phi = (p-1)*(q-1)
-                print n
-                print phi
-
-                #langkah 4
-                e = random.randrange(1, phi)
-
-                cek = gcd(e, phi)
-                while cek != 1:
-                    e = random.randrange(1, phi)
-                    cek = gcd(e, phi)
-                print e
-
-                #langkah 5
-                cek2 = e%phi
-                d = 1
-                while cek2 != 1:
-                    d+=1
-                    cek2 = (d*e)%phi
-                print d
-
-                #langkah 6
-                print "private key : ",d
-                print "public key : ",e
+                tampung = sock.recv(BUFFER_SIZE)
+                msg = tampung
+                sock.send('public {} n {}\n'.format(e,n))
+                jumlah = sock.recv(BUFFER_SIZE)
+                print jumlah
+                jumlah = int(jumlah)
+                hasil = []
+                i=0
+                while 1:
+                    if i==jumlah: break
+                    hasil.append(int(sock.recv(BUFFER_SIZE)))
+                    print hasil[i]
+                    i+=1
+                dekrip = decrypt(d,n,hasil)
+                print dekrip
                 
                 if msg:
-                    sock.send('public key : {}\n'.format(e))
+                    sock.send('data diterima\n')
                 else:
                     print sock.getpeername() , '((this user disconnected))'
                     sock.close()

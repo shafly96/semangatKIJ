@@ -9,16 +9,36 @@ clientSocket.connect(serverAddress)
 
 BUFFER_SIZE = 1024
 
+def enkripsi(public_key,n,plaintext):
+    cipher = [(ord(char)** public_key) %n for char in plaintext]
+    return cipher
+
 try:
-    while True:
+    while True: 
         sys.stdout.write('> ')
         message = sys.stdin.readline()
-        temp = message.partition(" ")
-        if temp[0]=="decrypt":
-            print "decrypt ",temp[2]
-        else:
-            clientSocket.send(message)
-            sys.stdout.write(clientSocket.recv(BUFFER_SIZE))
+        clientSocket.send(message)
+        tampung = clientSocket.recv(BUFFER_SIZE)
+        sys.stdout.write(tampung)
+        tampung = tampung.split(" ")
+        print tampung[1]
+        print tampung[3]
+        e = int(tampung[1])
+        n = int(tampung[3])
+        
+        message_enkrip = enkripsi(e,n,message)
+        print message_enkrip
+        a = ''.join(map(lambda x: str(x), message_enkrip))
+        print a
+        jumlah = str(len(message_enkrip))
+        clientSocket.send(jumlah)
+        i=0
+        while 1:
+            if i==len(message_enkrip): break
+            print message_enkrip[i]
+            clientSocket.send(str(message_enkrip[i]))
+            i+=1
+        sys.stdout.write(clientSocket.recv(BUFFER_SIZE))
 
 except KeyboardInterrupt:
     print 'You pressed ctrl+c'
