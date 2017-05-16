@@ -23,3 +23,4 @@ sumber :
 * http://teknosian.blogspot.co.id/2014/06/5-langkah-mudah-membuat-kunci-algoritma.html
 * https://www.slideshare.net/KuliahKita/kriptografi-algoritma-rsa
 * http://octarapribadi.blogspot.co.id/2016/02/enkripsi-dan-dekripsi-menggunakan-rsa.html
+* https://gist.github.com/JonCooperWorks/5314103 = ambil fungsi gcd dari link tersebut
